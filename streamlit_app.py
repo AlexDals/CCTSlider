@@ -11,60 +11,62 @@ def cct_to_slider(cct_value, min_cct, cct_per_unit):
 
 # Function to get the color approximation for a given CCT
 def cct_to_color(cct):
-    # Approximate color for given CCT (simplified)
+    # Simplified approximation of color based on CCT
     if cct < 3000:
-        return "#FFDDC1"  # Warm white
+        return "#FFDDC1"  # Warm light
     elif cct < 4000:
-        return "#FFF4E1"  # Soft white
-    elif cct < 5000:
-        return "#FFFFFF"  # Daylight
+        return "#FFE4B5"  # Neutral light
     else:
-        return "#E0F7FF"  # Cool white
+        return "#FFFACD"  # Cool light
+
+# Initialize session state
+if 'cct_range' not in st.session_state:
+    st.session_state.cct_range = "2200-4000"
+if 'slider_value' not in st.session_state:
+    st.session_state.slider_value = 0
+if 'cct_value' not in st.session_state:
+    st.session_state.cct_value = 2200
 
 # Define CCT ranges
 cct_ranges = {
-    "2200K-4000K": (2200, 4000, 1.8),
-    "2700K-6500K": (2700, 6500, 3.8)
+    "2200-4000": (2200, 4000, 1.8),
+    "2700-6500": (2700, 6500, 3.8)
 }
 
-# Streamlit app
+# Title
 st.title("Slider to CCT Converter")
 
-# Select CCT range
-cct_range = st.selectbox("Select CCT range:", list(cct_ranges.keys()))
-min_cct, max_cct, cct_per_unit = cct_ranges[cct_range]
+# CCT range selection
+st.session_state.cct_range = st.selectbox("Select CCT range:", cct_ranges.keys())
+
+# Get the selected range values
+min_cct, max_cct, cct_per_unit = cct_ranges[st.session_state.cct_range]
 
 # Slider for selecting value
-slider_value = st.slider("Select slider value (0-1000):", 0, 1000, key="slider")
+st.session_state.slider_value = st.slider("Select slider value (0-1000):", 0, 1000, int(st.session_state.slider_value))
 
 # Calculate corresponding CCT
-cct_result = slider_to_cct(slider_value, min_cct, cct_per_unit)
+st.session_state.cct_value = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
+st.write(f"Corresponding CCT: {st.session_state.cct_value:.2f}K")
 
-# Display corresponding CCT
-st.write(f"Corresponding CCT: {cct_result:.2f}K")
-
-# Display color preview
-color = cct_to_color(cct_result)
-st.markdown(f'<div style="width:100%; height:50px; background-color:{color};"></div>', unsafe_allow_html=True)
-
-# Input for desired CCT
-cct_value = st.number_input("Enter desired CCT:", float(min_cct), float(max_cct), value=float(cct_result), key="cct_input")
-
-# Calculate corresponding slider value
-slider_result = cct_to_slider(cct_value, min_cct, cct_per_unit)
-
-# Update slider value based on CCT input
-st.session_state.slider = slider_result
+# Number input for desired CCT
+st.session_state.cct_value = st.number_input(f"Enter desired CCT ({min_cct}K-{max_cct}K):", float(min_cct), float(max_cct), float(st.session_state.cct_value))
+st.session_state.slider_value = cct_to_slider(st.session_state.cct_value, min_cct, cct_per_unit)
+st.write(f"Corresponding slider value: {st.session_state.slider_value:.2f}")
 
 # Preset buttons
-st.write("Presets:")
-if cct_range == "2200K-4000K":
-    presets = [2200, 2700, 3000, 3500, 4000]
-else:
-    presets = [2700, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500]
+preset_values = {
+    "2200-4000": [2200, 2700, 3000, 3500, 4000],
+    "2700-6500": [2700, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500]
+}
 
-for preset in presets:
+st.write("Presets:")
+for preset in preset_values[st.session_state.cct_range]:
     if st.button(f"{preset}K"):
-        st.session_state.slider = cct_to_slider(preset, min_cct, cct_per_unit)
-        st.session_state.cct_input = preset
-    
+        st.session_state.cct_value = preset
+        st.session_state.slider_value = cct_to_slider(st.session_state.cct_value, min_cct, cct_per_unit)
+
+# Color preview
+color = cct_to_color(st.session_state.cct_value)
+st.write("Color Preview:")
+st.markdown(f"<div style='width:100%; height:100px; background-color:{color};'></div>", unsafe_allow_html=True)
