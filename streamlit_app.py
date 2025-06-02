@@ -121,55 +121,62 @@ if "slider_value" not in st.session_state:
 range_name = st.selectbox("Select CCT Range:", ["2200K-4000K", "2700K-6500K"])
 min_cct, cct_per_unit, preset_values = get_cct_range_values(range_name)
 
-# Slider and CCT display
+# Combined slider and CCT control
 st.divider()
-st.subheader("🔁 Slider to CCT Conversion")
-st.session_state.slider_value = st.slider(
-    "Select slider value (0-1000):",
-    0, 1000, st.session_state.slider_value,
-    key="slider"
-)
+st.subheader("🔁 CCT Control")
+
+# Create two columns for slider and number input
+ctrl_col1, ctrl_col2 = st.columns([2, 1])
+
+with ctrl_col1:
+    st.session_state.slider_value = st.slider(
+        "Slider value (0-1000):",
+        0, 1000, st.session_state.slider_value,
+        key="slider"
+    )
+
+with ctrl_col2:
+    cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
+    cct_input = st.number_input(
+        "CCT value:",
+        float(min_cct),
+        float(min_cct + 1000 * cct_per_unit),
+        value=float(cct_result),
+        key="cct_input"
+    )
+    
+    # Update slider if CCT input changes
+    if abs(cct_input - cct_result) > 0.1:
+        if min_cct <= cct_input <= min_cct + 1000 * cct_per_unit:
+            st.session_state.slider_value = int(cct_to_slider(cct_input, min_cct, cct_per_unit))
+            st.rerun()
+
+# Update final values
 cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
 color_description = get_color_description(cct_result)
-st.write(f"Corresponding CCT: **{cct_result:.2f}K** ({color_description})")
 
-# CCT input and validation
+# Combined preset buttons and color preview
 st.divider()
-st.subheader("🔁 CCT to Slider Conversion")
-cct_input = st.number_input(
-    "Enter desired CCT:",
-    float(min_cct),
-    float(min_cct + 1000 * cct_per_unit),
-    value=float(cct_result)
-)
-
-if min_cct <= cct_input <= min_cct + 1000 * cct_per_unit:
-    slider_result = cct_to_slider(cct_input, min_cct, cct_per_unit)
-    st.write(f"Slider value: **{slider_result:.2f}**")
-else:
-    st.error("CCT value is out of range for the selected range.")
+st.subheader("🎯 Presets & Color Preview")
 
 # Preset buttons
-st.divider()
-st.subheader("🎯 Preset CCT Values")
-cols = st.columns(len(preset_values))
+preset_cols = st.columns(len(preset_values))
 for i, preset in enumerate(preset_values):
-    if cols[i].button(f"{preset}K"):
+    if preset_cols[i].button(f"{preset}K"):
         st.session_state.slider_value = int(cct_to_slider(preset, min_cct, cct_per_unit))
         st.rerun()
 
-# Color preview with enhanced display
-st.divider()
-st.subheader("🎨 Color Preview")
+# Color preview
 r, g, b = cct_to_rgb(cct_result)
 color_hex = f"#{r:02x}{g:02x}{b:02x}"
+
+st.write(f"**Current:** {cct_result:.0f}K ({color_description})")
 
 col1, col2 = st.columns([1, 1])
 
 with col1:
     st.write(f"**RGB:** ({r}, {g}, {b})")
     st.write(f"**Hex:** `{color_hex}`")
-    st.write(f"**Type:** {color_description}")
 
 with col2:
     # Large color swatch
