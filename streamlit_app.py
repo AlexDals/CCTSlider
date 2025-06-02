@@ -83,6 +83,34 @@ def get_color_description(cct):
 
 st.set_page_config(page_title="CCT Slider App", page_icon="💡", layout="centered")
 
+# Custom CSS for tighter spacing
+st.markdown("""
+<style>
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+    }
+    .stSelectbox > div > div {
+        margin-bottom: 0.5rem;
+    }
+    .stSlider > div > div > div {
+        margin-bottom: 0.5rem;
+    }
+    .stNumberInput > div > div {
+        margin-bottom: 0.5rem;
+    }
+    .stButton > button {
+        margin-bottom: 0.25rem;
+    }
+    hr {
+        margin: 1rem 0;
+    }
+    .stSubheader {
+        margin-bottom: 0.5rem;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("💡 CCT Slider App")
 st.caption("Accurate color temperature visualization with improved warm and cool white rendering")
 
@@ -117,7 +145,7 @@ cct_input = st.number_input(
 
 if min_cct <= cct_input <= min_cct + 1000 * cct_per_unit:
     slider_result = cct_to_slider(cct_input, min_cct, cct_per_unit)
-    st.write(f"Corresponding slider value: **{slider_result:.2f}**")
+    st.write(f"Slider value: **{slider_result:.2f}**")
 else:
     st.error("CCT value is out of range for the selected range.")
 
@@ -139,9 +167,9 @@ color_hex = f"#{r:02x}{g:02x}{b:02x}"
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    st.write(f"**RGB Values:** ({r}, {g}, {b})")
-    st.write(f"**Hex Code:** `{color_hex}`")
-    st.write(f"**Color Type:** {color_description}")
+    st.write(f"**RGB:** ({r}, {g}, {b})")
+    st.write(f"**Hex:** `{color_hex}`")
+    st.write(f"**Type:** {color_description}")
 
 with col2:
     # Large color swatch
@@ -149,7 +177,7 @@ with col2:
         f'''
         <div style="
             width: 150px; 
-            height: 100px; 
+            height: 80px; 
             background-color: {color_hex}; 
             border: 2px solid #ccc; 
             border-radius: 10px;
@@ -182,12 +210,12 @@ for i, ref_temp in enumerate(reference_temps):
             f'''
             <div style="text-align: center;">
                 <div style="
-                    width: 80px; 
-                    height: 60px; 
+                    width: 70px; 
+                    height: 50px; 
                     background-color: {hex_ref}; 
                     border: 1px solid #ccc; 
                     border-radius: 5px;
-                    margin: 0 auto 5px auto;
+                    margin: 0 auto 3px auto;
                 "></div>
                 <small><strong>{ref_temp}K</strong><br>{ref_desc}</small>
             </div>
