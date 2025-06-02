@@ -66,3 +66,4 @@ st.write(f"Hex: `{color_hex}`")
 st.markdown(
     f'<div style="width:100px;height:100px;background-color:{color_hex};border-radius:50%;border:1px solid #ccc;"></div>',
     unsafe_allow_html=True
+)
