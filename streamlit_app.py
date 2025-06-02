@@ -10,7 +10,7 @@ def cct_to_slider(cct_value, min_cct, cct_per_unit):
 def get_cct_per_unit(min_cct, max_cct, slider_max):
     return (max_cct - min_cct) / slider_max
 
-st.title("Slider to CCT Converter")
+st.title("Dals Connect Slider CCT Converter")
 
 # Dropdown to select CCT range
 cct_range = st.selectbox("Select CCT range:", ["2200K-4000K", "2700K-6500K"])
