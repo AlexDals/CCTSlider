@@ -83,36 +83,115 @@ def get_color_description(cct):
 
 st.set_page_config(page_title="CCT Slider App", page_icon="💡", layout="centered")
 
-# Custom CSS for tighter spacing
+# Custom CSS for Dals.com inspired theme
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
     .block-container {
         padding-top: 2rem;
         padding-bottom: 1rem;
+        font-family: 'Inter', sans-serif;
     }
+    
+    /* Main title styling */
+    .main-title {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Professional color scheme */
     .stSelectbox > div > div {
         margin-bottom: 0.5rem;
+        border-radius: 8px;
     }
+    
     .stSlider > div > div > div {
         margin-bottom: 0.5rem;
     }
+    
     .stNumberInput > div > div {
         margin-bottom: 0.5rem;
+        border-radius: 8px;
     }
+    
     .stButton > button {
         margin-bottom: 0.25rem;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        background: white;
+        color: #333;
+        font-weight: 500;
+        transition: all 0.2s ease;
     }
+    
+    .stButton > button:hover {
+        background: #f8f9fa;
+        border-color: #007bff;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0,123,255,0.15);
+    }
+    
+    /* Section headers */
+    .section-header {
+        background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border-left: 4px solid #007bff;
+        margin-bottom: 1rem;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
     hr {
-        margin: 1rem 0;
+        margin: 1.5rem 0;
+        border: none;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #ddd, transparent);
     }
-    .stSubheader {
-        margin-bottom: 0.5rem;
+    
+    /* Color swatch enhancement */
+    .color-swatch {
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        transition: transform 0.2s ease;
+    }
+    
+    .color-swatch:hover {
+        transform: scale(1.02);
+    }
+    
+    /* Reference colors grid */
+    .reference-grid {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 12px;
+        border: 1px solid #e9ecef;
+    }
+    
+    /* Professional text styling */
+    .current-value {
+        background: white;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
     }
 </style>
 """, unsafe_allow_html=True)
 
-st.title("💡 CCT Slider App")
-st.caption("Accurate color temperature visualization with improved warm and cool white rendering")
+st.markdown("""
+<div class="main-title">
+    <h1 style="margin:0; font-size: 2.2rem; font-weight: 600;">💡 CCT Control Center</h1>
+    <p style="margin: 0.5rem 0 0 0; opacity: 0.9; font-size: 1rem;">Professional color temperature visualization and control</p>
+</div>
+""", unsafe_allow_html=True)
 
 # Initialize session state
 if "slider_value" not in st.session_state:
@@ -123,7 +202,7 @@ min_cct, cct_per_unit, preset_values = get_cct_range_values(range_name)
 
 # Combined slider and CCT control
 st.divider()
-st.subheader("🔁 CCT Control")
+st.markdown('<div class="section-header">🔧 CCT Control</div>', unsafe_allow_html=True)
 
 # Create two columns for slider and number input
 ctrl_col1, ctrl_col2 = st.columns([2, 1])
@@ -157,7 +236,7 @@ color_description = get_color_description(cct_result)
 
 # Combined preset buttons and color preview
 st.divider()
-st.subheader("🎯 Presets & Color Preview")
+st.markdown('<div class="section-header">🎯 Presets & Color Preview</div>', unsafe_allow_html=True)
 
 # Preset buttons
 preset_cols = st.columns(len(preset_values))
@@ -170,7 +249,7 @@ for i, preset in enumerate(preset_values):
 r, g, b = cct_to_rgb(cct_result)
 color_hex = f"#{r:02x}{g:02x}{b:02x}"
 
-st.write(f"**Current:** {cct_result:.0f}K ({color_description})")
+st.markdown(f'<div class="current-value"><strong>Current Setting:</strong> {cct_result:.0f}K ({color_description})</div>', unsafe_allow_html=True)
 
 col1, col2 = st.columns([1, 1])
 
@@ -179,21 +258,23 @@ with col1:
     st.write(f"**Hex:** `{color_hex}`")
 
 with col2:
-    # Large color swatch
+    # Large color swatch with enhanced styling
     st.markdown(
         f'''
-        <div style="
+        <div class="color-swatch" style="
             width: 150px; 
             height: 80px; 
             background-color: {color_hex}; 
-            border: 2px solid #ccc; 
-            border-radius: 10px;
+            border: 2px solid #e9ecef; 
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: {'black' if sum([r, g, b]) > 400 else 'white'};
-            font-weight: bold;
-            text-shadow: 1px 1px 2px {'white' if sum([r, g, b]) > 400 else 'black'};
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 2px {'rgba(255,255,255,0.8)' if sum([r, g, b]) > 400 else 'rgba(0,0,0,0.8)'};
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         ">
             {cct_result:.0f}K
         </div>
@@ -203,7 +284,9 @@ with col2:
 
 # Reference color comparison
 st.divider()
-st.subheader("🌡️ Reference Colors")
+st.markdown('<div class="section-header">🌡️ Reference Colors</div>', unsafe_allow_html=True)
+
+st.markdown('<div class="reference-grid">', unsafe_allow_html=True)
 reference_temps = [2700, 3000, 4000, 5000, 6500]
 ref_cols = st.columns(len(reference_temps))
 
@@ -220,12 +303,16 @@ for i, ref_temp in enumerate(reference_temps):
                     width: 70px; 
                     height: 50px; 
                     background-color: {hex_ref}; 
-                    border: 1px solid #ccc; 
-                    border-radius: 5px;
-                    margin: 0 auto 3px auto;
-                "></div>
-                <small><strong>{ref_temp}K</strong><br>{ref_desc}</small>
+                    border: 2px solid #e9ecef; 
+                    border-radius: 8px;
+                    margin: 0 auto 8px auto;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                    transition: transform 0.2s ease;
+                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
+                <small style="font-weight: 500; color: #2c3e50;"><strong>{ref_temp}K</strong><br><span style="color: #6c757d;">{ref_desc}</span></small>
             </div>
             ''',
             unsafe_allow_html=True
         )
+
+st.markdown('</div>', unsafe_allow_html=True)
