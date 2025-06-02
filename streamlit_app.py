@@ -83,113 +83,242 @@ def get_color_description(cct):
 
 st.set_page_config(page_title="CCT Slider App", page_icon="💡", layout="centered")
 
-# Custom CSS for Dals.com inspired theme
+# Enhanced CSS with better dark mode support and improved styling
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     
+    /* Base styling */
+    .stApp {
+        background-color: #f8f9fa;
+    }
+    
     .block-container {
         padding-top: 2rem;
-        padding-bottom: 1rem;
+        padding-bottom: 2rem;
         font-family: 'Inter', sans-serif;
+        max-width: 900px;
     }
     
     /* Main title styling */
     .main-title {
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        background: linear-gradient(135deg, #2c5aa0 0%, #1e3d72 100%);
         color: white;
-        padding: 1.5rem;
-        border-radius: 12px;
+        padding: 2rem;
+        border-radius: 16px;
         text-align: center;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 32px rgba(44, 90, 160, 0.2);
     }
     
-    /* Professional color scheme */
-    .stSelectbox > div > div {
-        margin-bottom: 0.5rem;
-        border-radius: 8px;
+    .main-title h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
-    .stSlider > div > div > div {
-        margin-bottom: 0.5rem;
-    }
-    
-    .stNumberInput > div > div {
-        margin-bottom: 0.5rem;
-        border-radius: 8px;
-    }
-    
-    .stButton > button {
-        margin-bottom: 0.25rem;
-        border-radius: 8px;
-        border: 1px solid #e0e0e0;
-        background: white;
-        color: #333;
-        font-weight: 500;
-        transition: all 0.2s ease;
-    }
-    
-    .stButton > button:hover {
-        background: #f8f9fa;
-        border-color: #007bff;
-        transform: translateY(-1px);
-        box-shadow: 0 2px 8px rgba(0,123,255,0.15);
+    .main-title p {
+        margin: 0.75rem 0 0 0;
+        opacity: 0.9;
+        font-size: 1.1rem;
+        font-weight: 400;
     }
     
     /* Section headers */
     .section-header {
-        background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 0.75rem 1rem;
-        border-radius: 8px;
-        border-left: 4px solid #007bff;
-        margin-bottom: 1rem;
+        background: linear-gradient(90deg, #ffffff 0%, #f1f3f4 100%);
+        padding: 1rem 1.25rem;
+        border-radius: 12px;
+        border-left: 4px solid #2c5aa0;
+        margin: 1.5rem 0 1rem 0;
         font-weight: 600;
-        color: #2c3e50;
+        color: #1a1a1a;
+        font-size: 1.1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
     
-    hr {
-        margin: 1.5rem 0;
-        border: none;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, #ddd, transparent);
+    /* Form controls styling */
+    .stSelectbox > div > div {
+        background: white;
+        border: 2px solid #e1e5e9;
+        border-radius: 10px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .stSelectbox > div > div:focus-within {
+        border-color: #2c5aa0;
+        box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+    }
+    
+    .stSlider > div > div > div {
+        background: white;
+        padding: 1rem;
+        border-radius: 12px;
+        border: 2px solid #e1e5e9;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .stNumberInput > div > div {
+        background: white;
+        border: 2px solid #e1e5e9;
+        border-radius: 10px;
+        transition: border-color 0.2s ease;
+    }
+    
+    .stNumberInput > div > div:focus-within {
+        border-color: #2c5aa0;
+        box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
+    }
+    
+    /* Button styling */
+    .stButton > button {
+        background: white;
+        color: #2c5aa0;
+        border: 2px solid #2c5aa0;
+        border-radius: 10px;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .stButton > button:hover {
+        background: #2c5aa0;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(44, 90, 160, 0.3);
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0);
+    }
+    
+    /* Current value display */
+    .current-value {
+        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        padding: 1.25rem;
+        border-radius: 12px;
+        border: 2px solid #e1e5e9;
+        margin: 1rem 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+    
+    .current-value-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c5aa0;
+        margin-bottom: 0.5rem;
+    }
+    
+    .current-value-text {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1a1a1a;
     }
     
     /* Color swatch enhancement */
     .color-swatch {
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-        transition: transform 0.2s ease;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        transition: all 0.3s ease;
+        border: 3px solid white;
+        margin: 0 auto;
     }
     
     .color-swatch:hover {
-        transform: scale(1.02);
+        transform: scale(1.05) translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.2);
     }
     
     /* Reference colors grid */
     .reference-grid {
-        background: #f8f9fa;
-        padding: 1rem;
-        border-radius: 12px;
-        border: 1px solid #e9ecef;
+        background: white;
+        padding: 1.5rem;
+        border-radius: 16px;
+        border: 2px solid #e1e5e9;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.05);
     }
     
-    /* Professional text styling */
-    .current-value {
+    .reference-item {
+        text-align: center;
+        transition: transform 0.2s ease;
+    }
+    
+    .reference-item:hover {
+        transform: translateY(-2px);
+    }
+    
+    .reference-swatch {
+        width: 80px;
+        height: 60px;
+        border-radius: 12px;
+        margin: 0 auto 12px auto;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border: 2px solid white;
+        transition: all 0.2s ease;
+    }
+    
+    .reference-swatch:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+    
+    /* RGB/Hex display */
+    .tech-info {
         background: white;
-        padding: 0.75rem;
-        border-radius: 8px;
-        border: 1px solid #e9ecef;
-        margin-bottom: 1rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        padding: 1rem;
+        border-radius: 12px;
+        border: 2px solid #e1e5e9;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .tech-info-label {
+        font-weight: 600;
+        color: #2c5aa0;
+        margin-bottom: 0.25rem;
+    }
+    
+    .tech-info-value {
+        font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        background: #f8f9fa;
+        padding: 0.5rem;
+        border-radius: 6px;
+        border: 1px solid #e1e5e9;
+        font-size: 0.9rem;
+    }
+    
+    /* Divider styling */
+    hr {
+        margin: 2rem 0;
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #e1e5e9, transparent);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .main-title h1 {
+            font-size: 2rem;
+        }
+        
+        .main-title p {
+            font-size: 1rem;
+        }
+        
+        .reference-swatch {
+            width: 60px;
+            height: 45px;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
 
 st.markdown("""
 <div class="main-title">
-    <h1 style="margin:0; font-size: 2.2rem; font-weight: 600;">💡 CCT Control Center</h1>
-    <p style="margin: 0.5rem 0 0 0; opacity: 0.9; font-size: 1rem;">Professional color temperature visualization and control</p>
+    <h1>💡 CCT Control Center</h1>
+    <p>Professional color temperature visualization and control</p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -197,15 +326,16 @@ st.markdown("""
 if "slider_value" not in st.session_state:
     st.session_state.slider_value = 0
 
-range_name = st.selectbox("Select CCT Range:", ["2200K-4000K", "2700K-6500K"])
+# Range selection
+st.markdown('<div class="section-header">📊 Range Selection</div>', unsafe_allow_html=True)
+range_name = st.selectbox("Select CCT Range:", ["2200K-4000K", "2700K-6500K"], key="range_select")
 min_cct, cct_per_unit, preset_values = get_cct_range_values(range_name)
 
-# Combined slider and CCT control
-st.divider()
+# CCT Control section
 st.markdown('<div class="section-header">🔧 CCT Control</div>', unsafe_allow_html=True)
 
 # Create two columns for slider and number input
-ctrl_col1, ctrl_col2 = st.columns([2, 1])
+ctrl_col1, ctrl_col2 = st.columns([3, 2])
 
 with ctrl_col1:
     st.session_state.slider_value = st.slider(
@@ -221,7 +351,8 @@ with ctrl_col2:
         float(min_cct),
         float(min_cct + 1000 * cct_per_unit),
         value=float(cct_result),
-        key="cct_input"
+        key="cct_input",
+        step=50.0
     )
     
     # Update slider if CCT input changes
@@ -234,47 +365,58 @@ with ctrl_col2:
 cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
 color_description = get_color_description(cct_result)
 
-# Combined preset buttons and color preview
-st.divider()
-st.markdown('<div class="section-header">🎯 Presets & Color Preview</div>', unsafe_allow_html=True)
+# Current setting display
+st.markdown(f'''
+<div class="current-value">
+    <div class="current-value-title">Current Setting</div>
+    <div class="current-value-text">{cct_result:.0f}K - {color_description}</div>
+</div>
+''', unsafe_allow_html=True)
 
-# Preset buttons
+# Preset buttons section
+st.markdown('<div class="section-header">🎯 Quick Presets</div>', unsafe_allow_html=True)
+
 preset_cols = st.columns(len(preset_values))
 for i, preset in enumerate(preset_values):
-    if preset_cols[i].button(f"{preset}K"):
+    if preset_cols[i].button(f"{preset}K", key=f"preset_{preset}"):
         st.session_state.slider_value = int(cct_to_slider(preset, min_cct, cct_per_unit))
         st.rerun()
 
-# Color preview
+# Color preview section
+st.markdown('<div class="section-header">🎨 Color Preview</div>', unsafe_allow_html=True)
+
 r, g, b = cct_to_rgb(cct_result)
 color_hex = f"#{r:02x}{g:02x}{b:02x}"
-
-st.markdown(f'<div class="current-value"><strong>Current Setting:</strong> {cct_result:.0f}K ({color_description})</div>', unsafe_allow_html=True)
 
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    st.write(f"**RGB:** ({r}, {g}, {b})")
-    st.write(f"**Hex:** `{color_hex}`")
+    st.markdown(f'''
+    <div class="tech-info">
+        <div class="tech-info-label">RGB Values</div>
+        <div class="tech-info-value">({r}, {g}, {b})</div>
+        <br>
+        <div class="tech-info-label">Hex Color</div>
+        <div class="tech-info-value">{color_hex}</div>
+    </div>
+    ''', unsafe_allow_html=True)
 
 with col2:
     # Large color swatch with enhanced styling
+    text_color = 'white' if sum([r, g, b]) < 400 else '#1a1a1a'
     st.markdown(
         f'''
         <div class="color-swatch" style="
-            width: 150px; 
-            height: 80px; 
+            width: 180px; 
+            height: 100px; 
             background-color: {color_hex}; 
-            border: 2px solid #e9ecef; 
-            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: {'black' if sum([r, g, b]) > 400 else 'white'};
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-shadow: 1px 1px 2px {'rgba(255,255,255,0.8)' if sum([r, g, b]) > 400 else 'rgba(0,0,0,0.8)'};
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            color: {text_color};
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-shadow: 0 2px 4px {'rgba(0,0,0,0.3)' if sum([r, g, b]) > 400 else 'rgba(255,255,255,0.3)'};
         ">
             {cct_result:.0f}K
         </div>
@@ -283,7 +425,6 @@ with col2:
     )
 
 # Reference color comparison
-st.divider()
 st.markdown('<div class="section-header">🌡️ Reference Colors</div>', unsafe_allow_html=True)
 
 st.markdown('<div class="reference-grid">', unsafe_allow_html=True)
@@ -298,18 +439,10 @@ for i, ref_temp in enumerate(reference_temps):
     with ref_cols[i]:
         st.markdown(
             f'''
-            <div style="text-align: center;">
-                <div style="
-                    width: 70px; 
-                    height: 50px; 
-                    background-color: {hex_ref}; 
-                    border: 2px solid #e9ecef; 
-                    border-radius: 8px;
-                    margin: 0 auto 8px auto;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                    transition: transform 0.2s ease;
-                " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"></div>
-                <small style="font-weight: 500; color: #2c3e50;"><strong>{ref_temp}K</strong><br><span style="color: #6c757d;">{ref_desc}</span></small>
+            <div class="reference-item">
+                <div class="reference-swatch" style="background-color: {hex_ref};"></div>
+                <div style="font-weight: 600; color: #2c5aa0; font-size: 1rem;">{ref_temp}K</div>
+                <div style="color: #6c757d; font-size: 0.85rem; margin-top: 0.25rem;">{ref_desc}</div>
             </div>
             ''',
             unsafe_allow_html=True
