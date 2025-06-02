@@ -1,4 +1,3 @@
-
 import streamlit as st
 
 def slider_to_cct(slider_value, min_cct, cct_per_unit):
