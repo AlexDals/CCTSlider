@@ -334,6 +334,11 @@ st.markdown("""
     .stMarkdown {
         margin-bottom: 0;
     }
+    
+    /* Hide Streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
@@ -364,7 +369,7 @@ min_cct, cct_per_unit, preset_values = get_cct_range_values(range_name)
 with st.container():
     st.markdown('<div class="section-header">🔄 Temperature Control</div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([2, 1])
+    col1, col2 = st.columns([1.33, 1])
     
     with col1:
         st.session_state.slider_value = st.slider(
