@@ -210,9 +210,8 @@ st.markdown("""
     
     .stSlider > div > div > div > div > div {
         background: transparent;        
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        width: 24px;
-        height: 24px;
+        width: 30px;
+        height: 25px;
     }
     
     
