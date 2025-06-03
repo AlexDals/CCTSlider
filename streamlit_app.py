@@ -343,6 +343,19 @@ st.markdown("""
         color: #374151 !important;
         font-weight: 500 !important;
     }
+
+    /* Enhance slider value label */
+    .stSlider span[data-testid="stSliderValue"] {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        color: #2563eb !important;
+        background-color: #e0f2fe !important;
+        padding: 0.25rem 0.75rem !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2) !important;
+}
+
+    
     
     /* Fix any white text on white background */
     .stMarkdown p {
@@ -402,21 +415,6 @@ with st.container():
             0, 1000, st.session_state.slider_value,
             key="slider"
         )
-        st.markdown(f'''
-<div style="
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2563eb;
-    background-color: #e0f2fe;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
-    margin-top: 1rem;
-">
-    Slider Value: {st.session_state.slider_value}
-</div>
-''', unsafe_allow_html=True)
     
     with col2:
         cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
