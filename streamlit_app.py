@@ -195,7 +195,7 @@ st.markdown("""
         border-radius: 10px !important;
         padding: 0.75rem 1rem !important;
         font-size: 1rem !important;
-        color: #FFFFFF !important;
+        color: #1e293b !important;
     }
     
     .stNumberInput > div > div > input:focus {
@@ -369,7 +369,7 @@ min_cct, cct_per_unit, preset_values = get_cct_range_values(range_name)
 with st.container():
     st.markdown('<div class="section-header">🔄 Temperature Control</div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([1.33, 1])
+    col1, col2 = st.columns([1.33, 1], gap="medium")
     
     with col1:
         st.session_state.slider_value = st.slider(
