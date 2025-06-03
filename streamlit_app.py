@@ -458,8 +458,17 @@ color_hex = f"#{r:02x}{g:02x}{b:02x}"
 with st.container():
     st.markdown('<div class="section-header">🎨 Color Preview</div>', unsafe_allow_html=True)
     
-    # Temperature display
-    st.markdown(f'<div class="current-temp">{cct_result:.0f}K</div>', unsafe_allow_html=True)
+    
+# Temperature display with background swatch
+st.markdown(f'''
+<div class="color-swatch" style="background-color: {color_hex};">
+    <div style="color: white; font-size: 2.5rem; font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
+        {cct_result:.0f}K
+    </div>
+</div>
+<div class="temp-description">{color_description}</div>
+''', unsafe_allow_html=True)
+
 
 
 # Reference Colors
