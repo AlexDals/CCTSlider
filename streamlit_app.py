@@ -460,18 +460,7 @@ with st.container():
     
     # Temperature display
     st.markdown(f'<div class="current-temp">{cct_result:.0f}K</div>', unsafe_allow_html=True)
-    
-        st.markdown(
-            f'''
-            <div class="color-swatch" style="
-                background-color: {color_hex}; 
-                color: {text_color};
-            ">
-                {cct_result:.0f}K
-            </div>
-            ''',
-            unsafe_allow_html=True
-        )
+
 
 # Reference Colors
 with st.container():
