@@ -342,45 +342,7 @@ st.markdown("""
         margin-bottom: 1.5rem;
     }
     
-    /* Info display */
-    .info-item {
-        background: #f8fafc;
-        padding: 1rem;
-        border-radius: 8px;
-        border-left: 4px solid #3b82f6;
-        margin-bottom: 0.5rem;
-    }
-    
-    .info-label {
-        font-weight: 600;
-        color: #374151;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-    
-    .info-value {
-        font-family: 'Courier New', monospace;
-        font-size: 1.1rem;
-        color: #1e293b;
-        font-weight: 500;
-    }
-    
-    /* Reference colors */
-    .reference-item {
-        text-align: center;
-        padding: 1rem;
-        background: #f8fafc;
-        border-radius: 12px;
-        border: 1px solid #e5e7eb;
-        transition: all 0.3s ease;
-    }
-    
-    .reference-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    }
-    
+
     .reference-swatch {
         width: 100%;
         height: 60px;
