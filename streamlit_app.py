@@ -216,24 +216,6 @@ st.markdown("""
         height: 24px;
     }
     
-    /* Slider value display - nuclear option to hide everything */
-    .stSlider .stMarkdown,
-    .stSlider .stMarkdown *,
-    .stSlider [data-testid="stMarkdownContainer"],
-    .stSlider [data-testid="stMarkdownContainer"] *,
-    .stSlider p,
-    .stSlider span:not([data-testid="stSliderThumb"]) {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        position: absolute !important;
-        left: -9999px !important;
-        width: 0 !important;
-        height: 0 !important;
-        overflow: hidden !important;
-        font-size: 0 !important;
-        line-height: 0 !important;
-    }
     
     /* Keep slider track and thumb visible */
     .stSlider [data-testid="stSliderThumb"],
