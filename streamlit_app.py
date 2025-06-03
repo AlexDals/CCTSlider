@@ -402,6 +402,21 @@ with st.container():
             0, 1000, st.session_state.slider_value,
             key="slider"
         )
+        st.markdown(f'''
+<div style="
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2563eb;
+    background-color: #e0f2fe;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    margin-top: 1rem;
+">
+    Slider Value: {st.session_state.slider_value}
+</div>
+''', unsafe_allow_html=True)
     
     with col2:
         cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
@@ -435,21 +450,7 @@ cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
 color_description = get_color_description(cct_result)
 r, g, b = cct_to_rgb(cct_result)
 color_hex = f"#{r:02x}{g:02x}{b:02x}"
-st.markdown(f'''
-<div style="
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2563eb;
-    background-color: #e0f2fe;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
-    margin-top: 1rem;
-">
-    Slider Value: {st.session_state.slider_value}
-</div>
-''', unsafe_allow_html=True)
+
 
 
 # Color Preview
