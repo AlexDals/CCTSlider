@@ -506,21 +506,16 @@ with st.container():
         # Color information
         st.markdown(f"""
         <div class="info-item">
-            <div class="info-value">({r}, {g}, {b})</div>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown(f"""
         <div class="info-item">
-            <div class="info-label">Hex Code</div>
-            <div class="info-value">{color_hex}</div>
         </div>
         """, unsafe_allow_html=True)
         
         st.markdown(f"""
         <div class="info-item">
-            <div class="info-label">Temperature</div>
-            <div class="info-value">{cct_result:.0f}K</div>
         </div>
         """, unsafe_allow_html=True)
     
