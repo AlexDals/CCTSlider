@@ -86,6 +86,124 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+
+
+# Initialize session state
+if "slider_value" not in st.session_state:
+    st.session_state.slider_value = 0
+
+# Header
+st.markdown("""
+<div class="main-header">
+    <div class="main-title">💡 CCT Color Temperature Tool</div>
+    <div class="main-subtitle">Professional color temperature visualization with accurate warm and cool white rendering</div>
+</div>
+""", unsafe_allow_html=True)
+
+# Range Selection
+with st.container():
+    st.markdown('<div class="section-header">🎛️ Range Selection</div>', unsafe_allow_html=True)
+    range_name = st.selectbox(
+        "CCT Range:",
+        ["2200K-4000K (Warm Whites)", "2700K-6500K (Full Range)"],
+        label_visibility="collapsed"
+    )
+
+min_cct, cct_per_unit, preset_values = get_cct_range_values(range_name)
+
+# Temperature Control
+with st.container():
+    st.markdown('<div class="section-header">🔄 Temperature Control</div>', unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([1.33, 1], gap="medium")
+    
+    with col1:
+        st.session_state.slider_value = st.slider(
+            "Slider value (0-1000):",
+            0, 1000, st.session_state.slider_value,
+            key="slider"
+        )
+    
+    with col2:
+        cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
+        cct_input = st.number_input(
+            "CCT value:",
+            float(min_cct),
+            float(min_cct + 1000 * cct_per_unit),
+            value=float(cct_result),
+            key="cct_input"
+        )
+        
+        # Update slider if CCT input changes
+        if abs(cct_input - cct_result) > 0.1:
+            if min_cct <= cct_input <= min_cct + 1000 * cct_per_unit:
+                st.session_state.slider_value = int(cct_to_slider(cct_input, min_cct, cct_per_unit))
+                st.rerun()
+
+# Quick Presets
+with st.container():
+    st.markdown('<div class="section-header">🎯 Quick Presets</div>', unsafe_allow_html=True)
+    
+    # Create preset buttons
+    cols = st.columns(len(preset_values))
+    for i, preset in enumerate(preset_values):
+        if cols[i].button(f"{preset}K", key=f"preset_{preset}"):
+            st.session_state.slider_value = int(cct_to_slider(preset, min_cct, cct_per_unit))
+            st.rerun()
+
+# Update final values
+cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
+color_description = get_color_description(cct_result)
+r, g, b = cct_to_rgb(cct_result)
+color_hex = f"#{r:02x}{g:02x}{b:02x}"
+
+# Color Preview
+with st.container():
+    st.markdown('<div class="section-header">🎨 Color Preview</div>', unsafe_allow_html=True)
+    
+    # Temperature display
+    st.markdown(f'<div class="current-temp">{cct_result:.0f}K</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="temp-description">{color_description}</div>', unsafe_allow_html=True)
+    
+        # Color information
+ # Color swatch
+        text_color = 'black' if sum([r, g, b]) > 400 else 'white'
+        st.markdown(
+            f'''
+            <div class="color-swatch" style="
+                background-color: {color_hex}; 
+                color: {text_color};
+            ">
+                {cct_result:.0f}K
+            </div>
+            ''',
+            unsafe_allow_html=True
+        )
+
+       
+# Reference Colors
+with st.container():
+    st.markdown('<div class="section-header">🌡️ Reference Temperatures</div>', unsafe_allow_html=True)
+    
+    reference_temps = [2700, 3000, 4000, 5000, 6500]
+    ref_cols = st.columns(len(reference_temps))
+    
+    for i, ref_temp in enumerate(reference_temps):
+        r_ref, g_ref, b_ref = cct_to_rgb(ref_temp)
+        hex_ref = f"#{r_ref:02x}{g_ref:02x}{b_ref:02x}"
+        ref_desc = get_color_description(ref_temp)
+        
+        with ref_cols[i]:
+            st.markdown(
+                f'''
+                <div class="reference-item">
+                    <div class="reference-swatch" style="background-color: {hex_ref};"></div>
+                    <div style="font-weight: 600; color: #374151; margin-bottom: 0.25rem;">{ref_temp}K</div>
+                    <div style="font-size: 0.85rem; color: #6b7280;">{ref_desc}</div>
+                </div>
+                ''',
+                unsafe_allow_html=True
+            )
 # Custom CSS for professional, clean design
 st.markdown("""
 <style>
@@ -422,120 +540,3 @@ st.markdown("""
     header {visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
-
-# Initialize session state
-if "slider_value" not in st.session_state:
-    st.session_state.slider_value = 0
-
-# Header
-st.markdown("""
-<div class="main-header">
-    <div class="main-title">💡 CCT Color Temperature Tool</div>
-    <div class="main-subtitle">Professional color temperature visualization with accurate warm and cool white rendering</div>
-</div>
-""", unsafe_allow_html=True)
-
-# Range Selection
-with st.container():
-    st.markdown('<div class="section-header">🎛️ Range Selection</div>', unsafe_allow_html=True)
-    range_name = st.selectbox(
-        "CCT Range:",
-        ["2200K-4000K (Warm Whites)", "2700K-6500K (Full Range)"],
-        label_visibility="collapsed"
-    )
-
-min_cct, cct_per_unit, preset_values = get_cct_range_values(range_name)
-
-# Temperature Control
-with st.container():
-    st.markdown('<div class="section-header">🔄 Temperature Control</div>', unsafe_allow_html=True)
-    
-    col1, col2 = st.columns([1.33, 1], gap="medium")
-    
-    with col1:
-        st.session_state.slider_value = st.slider(
-            "Slider value (0-1000):",
-            0, 1000, st.session_state.slider_value,
-            key="slider"
-        )
-    
-    with col2:
-        cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
-        cct_input = st.number_input(
-            "CCT value:",
-            float(min_cct),
-            float(min_cct + 1000 * cct_per_unit),
-            value=float(cct_result),
-            key="cct_input"
-        )
-        
-        # Update slider if CCT input changes
-        if abs(cct_input - cct_result) > 0.1:
-            if min_cct <= cct_input <= min_cct + 1000 * cct_per_unit:
-                st.session_state.slider_value = int(cct_to_slider(cct_input, min_cct, cct_per_unit))
-                st.rerun()
-
-# Quick Presets
-with st.container():
-    st.markdown('<div class="section-header">🎯 Quick Presets</div>', unsafe_allow_html=True)
-    
-    # Create preset buttons
-    cols = st.columns(len(preset_values))
-    for i, preset in enumerate(preset_values):
-        if cols[i].button(f"{preset}K", key=f"preset_{preset}"):
-            st.session_state.slider_value = int(cct_to_slider(preset, min_cct, cct_per_unit))
-            st.rerun()
-
-# Update final values
-cct_result = slider_to_cct(st.session_state.slider_value, min_cct, cct_per_unit)
-color_description = get_color_description(cct_result)
-r, g, b = cct_to_rgb(cct_result)
-color_hex = f"#{r:02x}{g:02x}{b:02x}"
-
-# Color Preview
-with st.container():
-    st.markdown('<div class="section-header">🎨 Color Preview</div>', unsafe_allow_html=True)
-    
-    # Temperature display
-    st.markdown(f'<div class="current-temp">{cct_result:.0f}K</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="temp-description">{color_description}</div>', unsafe_allow_html=True)
-    
-        # Color information
- # Color swatch
-        text_color = 'black' if sum([r, g, b]) > 400 else 'white'
-        st.markdown(
-            f'''
-            <div class="color-swatch" style="
-                background-color: {color_hex}; 
-                color: {text_color};
-            ">
-                {cct_result:.0f}K
-            </div>
-            ''',
-            unsafe_allow_html=True
-        )
-
-       
-# Reference Colors
-with st.container():
-    st.markdown('<div class="section-header">🌡️ Reference Temperatures</div>', unsafe_allow_html=True)
-    
-    reference_temps = [2700, 3000, 4000, 5000, 6500]
-    ref_cols = st.columns(len(reference_temps))
-    
-    for i, ref_temp in enumerate(reference_temps):
-        r_ref, g_ref, b_ref = cct_to_rgb(ref_temp)
-        hex_ref = f"#{r_ref:02x}{g_ref:02x}{b_ref:02x}"
-        ref_desc = get_color_description(ref_temp)
-        
-        with ref_cols[i]:
-            st.markdown(
-                f'''
-                <div class="reference-item">
-                    <div class="reference-swatch" style="background-color: {hex_ref};"></div>
-                    <div style="font-weight: 600; color: #374151; margin-bottom: 0.25rem;">{ref_temp}K</div>
-                    <div style="font-size: 0.85rem; color: #6b7280;">{ref_desc}</div>
-                </div>
-                ''',
-                unsafe_allow_html=True
-            )
