@@ -154,7 +154,7 @@ st.markdown("""
         gap: 0.5rem;
     }
     
-    /* Selectbox styling */
+    /* Selectbox styling - main input */
     .stSelectbox > div > div {
         background: white !important;
         border: 2px solid #e5e7eb !important;
@@ -173,6 +173,39 @@ st.markdown("""
         font-weight: 500 !important;
     }
     
+    /* Selectbox dropdown options */
+    .stSelectbox div[data-baseweb="select"] > div {
+        background: white !important;
+        color: #1e293b !important;
+    }
+    
+    .stSelectbox [data-baseweb="menu"] {
+        background: white !important;
+    }
+    
+    .stSelectbox [data-baseweb="menu"] li {
+        background: white !important;
+        color: #1e293b !important;
+    }
+    
+    .stSelectbox [data-baseweb="menu"] li:hover {
+        background: #f8fafc !important;
+        color: #1e293b !important;
+    }
+    
+    /* Target dropdown list items more specifically */
+    div[data-baseweb="select"] ul li,
+    div[data-baseweb="menu"] li {
+        background: white !important;
+        color: #1e293b !important;
+    }
+    
+    div[data-baseweb="select"] ul li:hover,
+    div[data-baseweb="menu"] li:hover {
+        background: #f8fafc !important;
+        color: #1e293b !important;
+    }
+    
     /* Slider styling */
     .stSlider > div > div > div > div {
         background: linear-gradient(to right, #ff6b35, #f7931e, #ffff00, #87ceeb, #4169e1);
@@ -188,22 +221,36 @@ st.markdown("""
         height: 24px;
     }
     
-    /* Slider value display - completely hide/transparent */
-    .stSlider > div > div > div > div[data-testid="stMarkdownContainer"],
-    .stSlider > div > div > div[data-testid="stMarkdownContainer"],
-    .stSlider [data-testid="stMarkdownContainer"] {
+    /* Slider value display - hide the value box completely */
+    .stSlider > div > div > div > div > div[data-testid="stMarkdownContainer"],
+    .stSlider div[data-testid="stMarkdownContainer"],
+    .stSlider .stMarkdown {
+        visibility: hidden !important;
+        display: none !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        width: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    /* Hide any text elements in slider */
+    .stSlider p,
+    .stSlider span {
+        visibility: hidden !important;
         display: none !important;
     }
     
-    /* Alternative approach - make all slider text elements transparent */
-    .stSlider .stMarkdown,
-    .stSlider .stMarkdown > div,
-    .stSlider .stMarkdown p {
-        background: transparent !important;
-        color: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        opacity: 0 !important;
+    /* Ensure slider track and thumb remain visible */
+    .stSlider > div > div > div > div:first-child {
+        visibility: visible !important;
+        display: block !important;
+        opacity: 1 !important;
+    }
+    
+    .stSlider > div > div > div > div > div:first-child {
+        visibility: visible !important;
+        display: block !important;
+        opacity: 1 !important;
     }
     
     /* Number input styling - force dark text */
