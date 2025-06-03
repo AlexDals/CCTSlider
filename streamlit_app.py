@@ -209,7 +209,7 @@ st.markdown("""
     }
     
     .stSlider > div > div > div > div > div {
-        background: white;
+        background: transparent;
         border: 3px solid #3b82f6;
         box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         width: 24px;
@@ -342,13 +342,7 @@ st.markdown("""
     .stSlider label {
         color: #374151 !important;
         font-weight: 500 !important;
-        font-size: 1.25rem !important;
-        font-weight: 700 !important;
-        color: #2563eb !important;
-        background-color: #e0f2fe !important;
-        padding: 0.25rem 0.75rem !important;
-        border-radius: 8px !important;
-        box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2) !important;
+
     }
 
     /* Enhance slider value label */
