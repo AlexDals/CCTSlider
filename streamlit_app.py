@@ -154,7 +154,7 @@ st.markdown("""
         gap: 0.5rem;
     }
     
-    /* Selectbox styling - main input */
+    /* Selectbox styling - more aggressive targeting */
     .stSelectbox > div > div {
         background: white !important;
         border: 2px solid #e5e7eb !important;
@@ -173,36 +173,31 @@ st.markdown("""
         font-weight: 500 !important;
     }
     
-    /* Selectbox dropdown options */
-    .stSelectbox div[data-baseweb="select"] > div {
+    /* Target all possible dropdown elements */
+    .stSelectbox ul,
+    .stSelectbox li,
+    .stSelectbox option,
+    .stSelectbox [role="option"],
+    .stSelectbox [role="listbox"],
+    div[data-baseweb="select"] *,
+    div[data-baseweb="menu"] *,
+    div[data-baseweb="popover"] * {
         background: white !important;
+        background-color: white !important;
         color: #1e293b !important;
     }
     
-    .stSelectbox [data-baseweb="menu"] {
-        background: white !important;
-    }
-    
-    .stSelectbox [data-baseweb="menu"] li {
-        background: white !important;
-        color: #1e293b !important;
-    }
-    
-    .stSelectbox [data-baseweb="menu"] li:hover {
+    /* Hover states */
+    .stSelectbox li:hover,
+    .stSelectbox [role="option"]:hover,
+    div[data-baseweb="menu"] *:hover {
         background: #f8fafc !important;
+        background-color: #f8fafc !important;
         color: #1e293b !important;
     }
     
-    /* Target dropdown list items more specifically */
-    div[data-baseweb="select"] ul li,
-    div[data-baseweb="menu"] li {
-        background: white !important;
-        color: #1e293b !important;
-    }
-    
-    div[data-baseweb="select"] ul li:hover,
-    div[data-baseweb="menu"] li:hover {
-        background: #f8fafc !important;
+    /* Force all selectbox text to be dark */
+    .stSelectbox * {
         color: #1e293b !important;
     }
     
@@ -221,36 +216,33 @@ st.markdown("""
         height: 24px;
     }
     
-    /* Slider value display - hide the value box completely */
-    .stSlider > div > div > div > div > div[data-testid="stMarkdownContainer"],
-    .stSlider div[data-testid="stMarkdownContainer"],
-    .stSlider .stMarkdown {
-        visibility: hidden !important;
-        display: none !important;
-        opacity: 0 !important;
-        height: 0 !important;
-        width: 0 !important;
-        overflow: hidden !important;
-    }
-    
-    /* Hide any text elements in slider */
+    /* Slider value display - nuclear option to hide everything */
+    .stSlider .stMarkdown,
+    .stSlider .stMarkdown *,
+    .stSlider [data-testid="stMarkdownContainer"],
+    .stSlider [data-testid="stMarkdownContainer"] *,
     .stSlider p,
-    .stSlider span {
-        visibility: hidden !important;
+    .stSlider span:not([data-testid="stSliderThumb"]) {
         display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        position: absolute !important;
+        left: -9999px !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        font-size: 0 !important;
+        line-height: 0 !important;
     }
     
-    /* Ensure slider track and thumb remain visible */
+    /* Keep slider track and thumb visible */
+    .stSlider [data-testid="stSliderThumb"],
+    .stSlider [data-testid="stSliderTrack"],
     .stSlider > div > div > div > div:first-child {
-        visibility: visible !important;
         display: block !important;
-        opacity: 1 !important;
-    }
-    
-    .stSlider > div > div > div > div > div:first-child {
         visibility: visible !important;
-        display: block !important;
         opacity: 1 !important;
+        position: relative !important;
     }
     
     /* Number input styling - force dark text */
