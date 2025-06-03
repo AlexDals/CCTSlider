@@ -273,6 +273,20 @@ st.markdown("""
         position: relative !important;
     }
     
+/* Hide value inside the slider thumb */
+[data-testid="stSlider"] [data-testid="stThumbValue"],
+[data-testid="stSlider"] [data-testid="stThumbValue"] * {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+}
+
+    
     /* Number input styling - force dark text */
     .stNumberInput input,
     .stNumberInput input[type="number"],
