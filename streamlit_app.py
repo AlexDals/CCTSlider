@@ -188,6 +188,17 @@ st.markdown("""
         height: 24px;
     }
     
+    /* Slider value display box - make transparent */
+    .stSlider > div > div > div[data-testid="stSliderTickBarMin"],
+    .stSlider > div > div > div[data-testid="stSliderTickBarMax"],
+    .stSlider > div > div > div > div[data-testid="stMarkdownContainer"] {
+        background: transparent !important;
+    }
+    
+    .stSlider .stMarkdown {
+        background: transparent !important;
+    }
+    
     /* Number input styling */
     .stNumberInput > div > div > input {
         background: white !important;
