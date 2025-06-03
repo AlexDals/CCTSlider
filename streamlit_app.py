@@ -221,6 +221,19 @@ st.markdown("""
     left: -9999px !important;
 }
 
+/* Hide slider tooltip box */
+[data-testid="stSlider"] [role="tooltip"],
+[data-testid="stSlider"] [role="tooltip"] * {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    left: -9999px !important;
+}
+
     
     
     .stSlider > div > div > div > div > div {
