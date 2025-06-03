@@ -459,15 +459,16 @@ with st.container():
     st.markdown('<div class="section-header">🎨 Color Preview</div>', unsafe_allow_html=True)
     
     
-# Temperature display with background swatch
+# Temperature display with centered text and background swatch
 st.markdown(f'''
-<div class="color-swatch" style="background-color: {color_hex};">
-    <div style="color: white; font-size: 2.5rem; font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.5);">
-        {cct_result:.0f}K
-    </div>
+<div class="color-swatch" style="background-color: {color_hex}; display: flex; align-items: center; justify-content: center;">
+    <div style="color: white; font-size: 2.5rem; font-weight: 700; text-shadow: 1px 1px 4px rgba(0,0,0,0.5); text-align: center;">
+        {cct_result:.0f}K
+    </div>
 </div>
 <div class="temp-description">{color_description}</div>
 ''', unsafe_allow_html=True)
+
 
 
 
