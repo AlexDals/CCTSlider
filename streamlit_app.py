@@ -460,30 +460,7 @@ with st.container():
     
     # Temperature display
     st.markdown(f'<div class="current-temp">{cct_result:.0f}K</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="temp-description">{color_description}</div>', unsafe_allow_html=True)
     
-    col1, col2 = st.columns([1, 1])
-    
-    with col1:
-        # Color information
-        st.markdown(f"""
-        <div class="info-item">
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown(f"""
-        <div class="info-item">
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown(f"""
-        <div class="info-item">
-        </div>
-        """, unsafe_allow_html=True)
-    
-    with col2:
-        # Color swatch
-        text_color = 'black' if sum([r, g, b]) > 400 else 'white'
         st.markdown(
             f'''
             <div class="color-swatch" style="
