@@ -156,15 +156,21 @@ st.markdown("""
     
     /* Selectbox styling */
     .stSelectbox > div > div {
-        background: white;
-        border: 2px solid #e5e7eb;
-        border-radius: 10px;
-        font-size: 1rem;
+        background: white !important;
+        border: 2px solid #e5e7eb !important;
+        border-radius: 10px !important;
+        font-size: 1rem !important;
+        color: #1e293b !important;
     }
     
     .stSelectbox > div > div:focus-within {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    }
+    
+    .stSelectbox label {
+        color: #374151 !important;
+        font-weight: 500 !important;
     }
     
     /* Slider styling */
@@ -184,15 +190,22 @@ st.markdown("""
     
     /* Number input styling */
     .stNumberInput > div > div > input {
-        border: 2px solid #e5e7eb;
-        border-radius: 10px;
-        padding: 0.75rem 1rem;
-        font-size: 1rem;
+        background: white !important;
+        border: 2px solid #e5e7eb !important;
+        border-radius: 10px !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 1rem !important;
+        color: #1e293b !important;
     }
     
     .stNumberInput > div > div > input:focus {
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        border-color: #3b82f6 !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    }
+    
+    .stNumberInput label {
+        color: #374151 !important;
+        font-weight: 500 !important;
     }
     
     /* Button styling */
@@ -295,10 +308,27 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
     
-    /* Hide Streamlit branding */
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
+    /* General text color fixes */
+    .stApp, .stApp p, .stApp span, .stApp div {
+        color: #1e293b !important;
+    }
+    
+    /* Slider label styling */
+    .stSlider label {
+        color: #374151 !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Fix any white text on white background */
+    .stMarkdown p {
+        color: #1e293b !important;
+    }
+    
+    /* Ensure all input labels are visible */
+    label {
+        color: #374151 !important;
+        font-weight: 500 !important;
+    }
     
     /* Remove extra padding */
     .stMarkdown {
