@@ -476,7 +476,7 @@ st.markdown(f'''
 with st.container():
     st.markdown('<div class="section-header">🌡️ Reference Temperatures</div>', unsafe_allow_html=True)
     
-    reference_temps = [2700, 3000, 4000, 5000, 6500]
+    reference_temps = preset_values
     ref_cols = st.columns(len(reference_temps))
     
     for i, ref_temp in enumerate(reference_temps):
