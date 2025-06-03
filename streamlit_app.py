@@ -209,13 +209,17 @@ st.markdown("""
     }
     
     .stSlider > div > div > div > div > div {
-        background: transparent;        
+        background: #e0f2fe;        
         width: 30px;
         height: 25px;
         font-size: 1.25rem !important;
         font-weight: 700 !important;
         color: #2563eb !important;
         background-color: #e0f2fe !important;
+        padding: 0.25rem 0.75rem !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2) !important;
+
 
     }
     
