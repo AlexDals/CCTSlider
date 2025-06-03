@@ -80,7 +80,7 @@ def get_color_description(cct):
 
 # Page configuration
 st.set_page_config(
-    page_title="CCT Color Temperature Tool",
+    page_title="Dals Connect CCT Converter",
     page_icon="💡",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -392,8 +392,8 @@ if "slider_value" not in st.session_state:
 # Header
 st.markdown("""
 <div class="main-header">
-    <div class="main-title">💡 CCT Color Temperature Tool</div>
-    <div class="main-subtitle">Professional color temperature visualization with accurate warm and cool white rendering</div>
+    <div class="main-title">💡 Dals Connect CCT Converter</div>
+    <div class="main-subtitle">A tool to easily find the CCT value of automations in the Dals Connect app.</div>
 </div>
 """, unsafe_allow_html=True)
 
