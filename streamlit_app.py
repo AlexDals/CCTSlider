@@ -207,34 +207,6 @@ st.markdown("""
         height: 8px;
         border-radius: 4px;
     }
-
-/* Hide slider value display */
-[data-testid="stSlider"] > div > div:nth-child(2),
-[data-testid="stSlider"] > div > div:nth-child(2) * {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0 !important;
-    width: 0 !important;
-    overflow: hidden !important;
-    position: absolute !important;
-    left: -9999px !important;
-}
-
-/* Hide slider tooltip box */
-[data-testid="stSlider"] [role="tooltip"],
-[data-testid="stSlider"] [role="tooltip"] * {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0 !important;
-    width: 0 !important;
-    overflow: hidden !important;
-    position: absolute !important;
-    left: -9999px !important;
-}
-
-    
     
     .stSlider > div > div > div > div > div {
         background: white;
@@ -272,20 +244,6 @@ st.markdown("""
         opacity: 1 !important;
         position: relative !important;
     }
-    
-/* Hide value inside the slider thumb */
-[data-testid="stSlider"] [data-testid="stThumbValue"],
-[data-testid="stSlider"] [data-testid="stThumbValue"] * {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    height: 0 !important;
-    width: 0 !important;
-    overflow: hidden !important;
-    position: absolute !important;
-    left: -9999px !important;
-}
-
     
     /* Number input styling - force dark text */
     .stNumberInput input,
