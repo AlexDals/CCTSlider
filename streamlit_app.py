@@ -188,18 +188,37 @@ st.markdown("""
         height: 24px;
     }
     
-    /* Slider value display box - make transparent */
+    /* Slider value display - make completely transparent */
     .stSlider > div > div > div[data-testid="stSliderTickBarMin"],
-    .stSlider > div > div > div[data-testid="stSliderTickBarMax"],
-    .stSlider > div > div > div > div[data-testid="stMarkdownContainer"] {
-        background: transparent !important;
+    .stSlider > div > div > div[data-testid="stSliderTickBarMax"] {
+        display: none !important;
     }
     
     .stSlider .stMarkdown {
         background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
     }
     
-    /* Number input styling */
+    .stSlider .stMarkdown > div {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    .stSlider [data-testid="stMarkdownContainer"] {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    .stSlider [data-testid="stMarkdownContainer"] > div {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Number input styling - fixed text color */
     .stNumberInput > div > div > input {
         background: white !important;
         border: 2px solid #e5e7eb !important;
@@ -212,11 +231,21 @@ st.markdown("""
     .stNumberInput > div > div > input:focus {
         border-color: #3b82f6 !important;
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+        color: #1e293b !important;
+    }
+    
+    .stNumberInput > div > div > input::placeholder {
+        color: #9ca3af !important;
     }
     
     .stNumberInput label {
         color: #374151 !important;
         font-weight: 500 !important;
+    }
+    
+    /* Force number input text to be dark */
+    input[type="number"] {
+        color: #1e293b !important;
     }
     
     /* Button styling */
