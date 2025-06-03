@@ -188,54 +188,49 @@ st.markdown("""
         height: 24px;
     }
     
-    /* Slider value display - make completely transparent */
-    .stSlider > div > div > div[data-testid="stSliderTickBarMin"],
-    .stSlider > div > div > div[data-testid="stSliderTickBarMax"] {
+    /* Slider value display - completely hide/transparent */
+    .stSlider > div > div > div > div[data-testid="stMarkdownContainer"],
+    .stSlider > div > div > div[data-testid="stMarkdownContainer"],
+    .stSlider [data-testid="stMarkdownContainer"] {
         display: none !important;
     }
     
-    .stSlider .stMarkdown {
+    /* Alternative approach - make all slider text elements transparent */
+    .stSlider .stMarkdown,
+    .stSlider .stMarkdown > div,
+    .stSlider .stMarkdown p {
         background: transparent !important;
+        color: transparent !important;
         border: none !important;
         box-shadow: none !important;
+        opacity: 0 !important;
     }
     
-    .stSlider .stMarkdown > div {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-    
-    .stSlider [data-testid="stMarkdownContainer"] {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-    
-    .stSlider [data-testid="stMarkdownContainer"] > div {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-    }
-    
-    /* Number input styling - fixed text color */
-    .stNumberInput > div > div > input {
+    /* Number input styling - force dark text */
+    .stNumberInput input,
+    .stNumberInput input[type="number"],
+    .stNumberInput > div > div > input,
+    .stNumberInput div input {
         background: white !important;
         border: 2px solid #e5e7eb !important;
         border-radius: 10px !important;
         padding: 0.75rem 1rem !important;
         font-size: 1rem !important;
         color: #1e293b !important;
+        -webkit-text-fill-color: #1e293b !important;
     }
     
-    .stNumberInput > div > div > input:focus {
+    .stNumberInput input:focus,
+    .stNumberInput input[type="number"]:focus {
         border-color: #3b82f6 !important;
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
         color: #1e293b !important;
+        -webkit-text-fill-color: #1e293b !important;
     }
     
-    .stNumberInput > div > div > input::placeholder {
+    .stNumberInput input::placeholder {
         color: #9ca3af !important;
+        -webkit-text-fill-color: #9ca3af !important;
     }
     
     .stNumberInput label {
@@ -243,9 +238,16 @@ st.markdown("""
         font-weight: 500 !important;
     }
     
-    /* Force number input text to be dark */
+    /* More aggressive number input text color fix */
     input[type="number"] {
         color: #1e293b !important;
+        -webkit-text-fill-color: #1e293b !important;
+    }
+    
+    /* Target Streamlit's specific number input structure */
+    div[data-testid="stNumberInput"] input {
+        color: #1e293b !important;
+        -webkit-text-fill-color: #1e293b !important;
     }
     
     /* Button styling */
