@@ -212,6 +212,11 @@ st.markdown("""
         background: transparent;        
         width: 30px;
         height: 25px;
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        color: #2563eb !important;
+        background-color: #e0f2fe !important;
+
     }
     
     
